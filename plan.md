@@ -98,15 +98,15 @@ ski-club/
 - [x] Create `page-contact.php` — minimal placeholder with "Contact" heading + "coming soon" text
 
 ### Phase 6 — Plugin & Admin Setup
-- [ ] Install ACF Free plugin (`wp-content/plugins/`)
-- [ ] Activate ACF via WP Admin → Plugins
-- [ ] Activate `ski-club` theme via WP Admin → Appearance → Themes
-- [ ] Create 6 Pages in WP Admin with correct slugs: home, about, trips, events, join, contact
-- [ ] Set Reading Settings → Static Front Page → "Home"
-- [ ] Set Permalinks → "Post name" structure → Save (flushes rewrite rules)
-- [ ] Add 2 sample trips: "Verbier, Switzerland" (Jan 24–31, featured) + "Park City, Utah" (Feb 28–Mar 7, featured)
-- [ ] Add 4 sample events: Monthly Club Meeting (Mar 19), Spring Bike Ride (Apr 12), Annual Spring Picnic (May 3), Kayaking Adventure (Jun 7)
-- [ ] Upload hero image and 3 gallery photos via Customizer
+- [x] Install ACF Free plugin (`wp-content/plugins/`)
+- [x] Activate ACF via WP Admin → Plugins
+- [x] Activate `ski-club` theme via WP Admin → Appearance → Themes
+- [x] Create 6 Pages in WP Admin with correct slugs: home, about, trips, events, join, contact
+- [x] Set Reading Settings → Static Front Page → "Home"
+- [x] Set Permalinks → "Post name" structure → Save (flushes rewrite rules)
+- [x] Add 2 sample trips: "Verbier, Switzerland" (Jan 24–31, featured) + "Park City, Utah" (Feb 28–Mar 7, featured)
+- [x] Add 4 sample events: Monthly Club Meeting (Mar 19), Spring Bike Ride (Apr 12), Annual Spring Picnic (May 3), Kayaking Adventure (Jun 7)
+- [x] Upload hero image and 3 gallery photos via Customizer
 
 ---
 
