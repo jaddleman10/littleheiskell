@@ -236,6 +236,78 @@ function ski_club_register_acf_fields() {
 		'instruction_placement' => 'label',
 	] );
 	/* -----------------------------------------------------------------------
+	   Contact Page — fixed-slot officer directory (10 slots, 7 in use)
+	----------------------------------------------------------------------- */
+
+	$contact_fields = [];
+	$contact_defaults = [
+		1 => [ 'name' => 'Carol Carbaugh', 'position' => 'President',      'email' => 'VP@LittleHeiskellSkiClub.com' ],
+		2 => [ 'name' => 'Gwen Hard',      'position' => 'Vice President', 'email' => 'President@LittleHeiskellSkiClub.com' ],
+		3 => [ 'name' => 'Kathy Sortore',  'position' => 'Membership',     'email' => 'info@LittleheiskellSkiClub.com' ],
+		4 => [ 'name' => 'Anita Wade',     'position' => 'Treasurer',      'email' => 'Treasurer@LittleHeiskellSkiClub.com' ],
+		5 => [ 'name' => 'Vicki Martin',   'position' => 'Secretary',      'email' => 'Secretary@LittleHeiskellSkiClub.com' ],
+		6 => [ 'name' => 'Sherry Itnyre',  'position' => 'Newsletter',     'email' => 'Newsletter@LittleHeiskellSkiCLub.com' ],
+		7 => [ 'name' => 'Betsy Klein',    'position' => 'Website',        'email' => 'Website@LittleHeiskellSkiClub.com' ],
+	];
+
+	for ( $i = 1; $i <= 10; $i++ ) {
+		$default = $contact_defaults[ $i ] ?? [ 'name' => '', 'position' => '', 'email' => '' ];
+
+		$contact_fields[] = [
+			'key'   => "field_cp_tab_{$i}",
+			'label' => "Contact {$i}",
+			'type'  => 'tab',
+		];
+		$contact_fields[] = [
+			'key'           => "field_cp_name_{$i}",
+			'label'         => 'Name',
+			'name'          => "cp_name_{$i}",
+			'type'          => 'text',
+			'default_value' => $default['name'],
+			'instructions'  => 'Full name of the officer.',
+		];
+		$contact_fields[] = [
+			'key'           => "field_cp_position_{$i}",
+			'label'         => 'Position / Title',
+			'name'          => "cp_position_{$i}",
+			'type'          => 'text',
+			'default_value' => $default['position'],
+			'instructions'  => 'e.g. President, Treasurer, Newsletter',
+		];
+		$contact_fields[] = [
+			'key'           => "field_cp_email_{$i}",
+			'label'         => 'Email Address',
+			'name'          => "cp_email_{$i}",
+			'type'          => 'email',
+			'default_value' => $default['email'],
+		];
+	}
+
+	// ACF 'page' location rule requires a post ID, not a slug.
+	$contact_page    = get_page_by_path( 'contact' );
+	$contact_page_id = $contact_page ? (string) $contact_page->ID : '0';
+
+	acf_add_local_field_group( [
+		'key'    => 'group_contact_page',
+		'title'  => 'Contact Directory',
+		'fields' => $contact_fields,
+		'location' => [ [ [
+			'param'    => 'post_type',
+			'operator' => '==',
+			'value'    => 'page',
+		], [
+			'param'    => 'page',
+			'operator' => '==',
+			'value'    => $contact_page_id,
+		] ] ],
+		'menu_order'            => 0,
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+	] );
+
+	/* -----------------------------------------------------------------------
 	   Events Page — editable activities & meeting details
 	----------------------------------------------------------------------- */
 	acf_add_local_field_group( [

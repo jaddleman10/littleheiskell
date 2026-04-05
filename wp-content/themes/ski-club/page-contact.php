@@ -25,15 +25,18 @@ get_header();
 			<div class="card-body" style="padding: 0;">
 
 				<?php
-				$contacts = [
-					[ 'position' => 'President',      'name' => 'Carol Carbaugh', 'email' => 'VP@LittleHeiskellSkiClub.com' ],
-					[ 'position' => 'Vice President', 'name' => 'Gwen Hard',      'email' => 'President@LittleHeiskellSkiClub.com' ],
-					[ 'position' => 'Membership',     'name' => 'Kathy Sortore',  'email' => 'info@LittleheiskellSkiClub.com' ],
-					[ 'position' => 'Treasurer',      'name' => 'Anita Wade',     'email' => 'Treasurer@LittleHeiskellSkiClub.com' ],
-					[ 'position' => 'Secretary',      'name' => 'Vicki Martin',   'email' => 'Secretary@LittleHeiskellSkiClub.com' ],
-					[ 'position' => 'Newsletter',     'name' => 'Sherry Itnyre',  'email' => 'Newsletter@LittleHeiskellSkiCLub.com' ],
-					[ 'position' => 'Website',        'name' => 'Betsy Klein',    'email' => 'Website@LittleHeiskellSkiClub.com' ],
-				];
+				$page_id  = get_the_ID();
+				$contacts = [];
+
+				for ( $i = 1; $i <= 10; $i++ ) {
+					$name = ski_club_get_field( "cp_name_{$i}", $page_id );
+					if ( ! $name ) continue;
+					$contacts[] = [
+						'name'     => $name,
+						'position' => ski_club_get_field( "cp_position_{$i}", $page_id ),
+						'email'    => ski_club_get_field( "cp_email_{$i}",    $page_id ),
+					];
+				}
 				?>
 
 				<table style="width: auto; border-collapse: collapse; font-size: var(--font-size-sm);">

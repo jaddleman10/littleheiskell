@@ -108,7 +108,9 @@ $trips_query = new WP_Query( [
 								</span>
 							<?php endif; ?>
 
-							<h2 class="trip-full-card__title"><?php the_title(); ?></h2>
+							<h2 class="trip-full-card__title">
+							<a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a>
+						</h2>
 
 							<div class="trip-full-card__meta">
 								<?php if ( $dates_label ) : ?>
@@ -136,8 +138,12 @@ $trips_query = new WP_Query( [
 								</ul>
 							<?php endif; ?>
 
-							<div class="trip-full-card__footer">
-								<a href="<?php echo esc_url( $inquiry_url ); ?>" class="btn btn-primary">
+							<div class="trip-full-card__footer" style="display: flex; gap: var(--space-3);">
+								<a href="<?php the_permalink(); ?>" class="btn btn-primary">
+									View Trip Details
+									<?php echo ski_club_icon( 'arrow-right', 'icon' ); ?>
+								</a>
+								<a href="<?php echo esc_url( $inquiry_url ); ?>" class="btn btn-outline-primary">
 									<?php echo ski_club_icon( 'plane', 'icon' ); ?>
 									<?php echo esc_html( $inquiry_text ); ?>
 								</a>

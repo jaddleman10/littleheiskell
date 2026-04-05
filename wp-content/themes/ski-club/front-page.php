@@ -233,7 +233,9 @@ $featured_trips = new WP_Query( [
 								</span>
 							<?php endif; ?>
 
-							<h3 class="trip-card__title"><?php the_title(); ?></h3>
+							<h3 class="trip-card__title">
+							<a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;"><?php the_title(); ?></a>
+						</h3>
 
 							<?php if ( $dates_label ) : ?>
 								<div class="trip-card__meta">
@@ -263,8 +265,8 @@ $featured_trips = new WP_Query( [
 
 						<!-- Footer CTA -->
 						<div class="trip-card__footer">
-							<a href="<?php echo esc_url( $inquiry_url ); ?>" class="btn btn-primary btn-sm">
-								<?php echo esc_html( $inquiry_text ); ?>
+							<a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">
+								View Trip Details
 								<?php echo ski_club_icon( 'arrow-right', 'icon' ); ?>
 							</a>
 						</div>
