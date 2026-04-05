@@ -163,6 +163,39 @@ $events_query = new WP_Query( [
 /* ==========================================================================
    SECTION 3 — ACTIVITIES (alternating image/text rows)
    ========================================================================== */
+
+$events_page_id = get_the_ID();
+
+$activities = [
+	[
+		'icon'    => 'mountain',
+		'reverse' => false,
+		'title'   => ski_club_get_field( 'ep_skiing_title',  $events_page_id ) ?: 'Skiing &amp; Snowboarding',
+		'season'  => ski_club_get_field( 'ep_skiing_season', $events_page_id ) ?: 'Winter',
+		'desc'    => ski_club_get_field( 'ep_skiing_desc',   $events_page_id ) ?: 'Our flagship activity. Each winter season we organize multiple group trips to premier resorts, from nearby Timberline and Snowshoe to world-class destinations in Colorado, Vermont, and Europe. Group rates, coordinated travel, and shared lodging make every trip affordable and unforgettable.',
+	],
+	[
+		'icon'    => 'bike',
+		'reverse' => true,
+		'title'   => ski_club_get_field( 'ep_biking_title',  $events_page_id ) ?: 'Biking',
+		'season'  => ski_club_get_field( 'ep_biking_season', $events_page_id ) ?: 'Spring &amp; Summer',
+		'desc'    => ski_club_get_field( 'ep_biking_desc',   $events_page_id ) ?: "When the snow melts, we trade ski poles for handlebars. Our biking program offers group rides through some of the region's most scenic trails — the C&amp;O Canal towpath, the Great Allegheny Passage, and the rolling hills of the Blue Ridge Mountains. All fitness levels welcome.",
+	],
+	[
+		'icon'    => 'droplets',
+		'reverse' => false,
+		'title'   => ski_club_get_field( 'ep_kayaking_title',  $events_page_id ) ?: 'Kayaking',
+		'season'  => ski_club_get_field( 'ep_kayaking_season', $events_page_id ) ?: 'Summer',
+		'desc'    => ski_club_get_field( 'ep_kayaking_desc',   $events_page_id ) ?: 'Summer paddles on the Potomac, Shenandoah, and local lakes give members a fresh way to experience the outdoors. Guided outings are available for beginners, while more experienced paddlers can tackle longer river routes with the group.',
+	],
+	[
+		'icon'    => 'party-popper',
+		'reverse' => true,
+		'title'   => ski_club_get_field( 'ep_social_title',  $events_page_id ) ?: 'Social Events',
+		'season'  => ski_club_get_field( 'ep_social_season', $events_page_id ) ?: 'Year-Round',
+		'desc'    => ski_club_get_field( 'ep_social_desc',   $events_page_id ) ?: 'The glue that holds everything together. Monthly club meetings, end-of-season celebrations, spring picnics, and holiday parties keep the LHSC community connected long after the ski season ends. New members are always welcomed at every event.',
+	],
+];
 ?>
 
 <section class="section bg-gray-50">
@@ -178,93 +211,30 @@ $events_query = new WP_Query( [
 
 		<div class="activity-rows">
 
-			<!-- Row 1: Skiing (image left) -->
-			<div class="activity-row">
+			<?php foreach ( $activities as $activity ) :
+				$row_class = 'activity-row' . ( $activity['reverse'] ? ' activity-row--reverse' : '' );
+			?>
 
-				<div class="activity-row__image">
-					<div class="activity-row__image-placeholder">
-						<?php echo ski_club_icon( 'mountain', 'icon icon-xl' ); ?>
+				<div class="<?php echo esc_attr( $row_class ); ?>">
+
+					<div class="activity-row__image">
+						<div class="activity-row__image-placeholder">
+							<?php echo ski_club_icon( $activity['icon'], 'icon icon-xl' ); ?>
+						</div>
 					</div>
-				</div>
 
-				<div class="activity-row__content">
-					<span class="activity-row__season">Winter</span>
-					<div class="activity-row__icon-wrap">
-						<?php echo ski_club_icon( 'mountain', 'icon icon-lg' ); ?>
+					<div class="activity-row__content">
+						<span class="activity-row__season"><?php echo esc_html( $activity['season'] ); ?></span>
+						<div class="activity-row__icon-wrap">
+							<?php echo ski_club_icon( $activity['icon'], 'icon icon-lg' ); ?>
+						</div>
+						<h3 class="activity-row__title"><?php echo esc_html( $activity['title'] ); ?></h3>
+						<p class="activity-row__desc"><?php echo esc_html( $activity['desc'] ); ?></p>
 					</div>
-					<h3 class="activity-row__title">Skiing &amp; Snowboarding</h3>
-					<p class="activity-row__desc">
-						Our flagship activity. Each winter season we organize multiple group trips to premier resorts, from nearby Timberline and Snowshoe to world-class destinations in Colorado, Vermont, and Europe. Group rates, coordinated travel, and shared lodging make every trip affordable and unforgettable.
-					</p>
-				</div>
 
-			</div><!-- .activity-row -->
+				</div><!-- .activity-row -->
 
-			<!-- Row 2: Biking (image right) -->
-			<div class="activity-row activity-row--reverse">
-
-				<div class="activity-row__image">
-					<div class="activity-row__image-placeholder">
-						<?php echo ski_club_icon( 'bike', 'icon icon-xl' ); ?>
-					</div>
-				</div>
-
-				<div class="activity-row__content">
-					<span class="activity-row__season">Spring &amp; Summer</span>
-					<div class="activity-row__icon-wrap">
-						<?php echo ski_club_icon( 'bike', 'icon icon-lg' ); ?>
-					</div>
-					<h3 class="activity-row__title">Biking</h3>
-					<p class="activity-row__desc">
-						When the snow melts, we trade ski poles for handlebars. Our biking program offers group rides through some of the region's most scenic trails — the C&amp;O Canal towpath, the Great Allegheny Passage, and the rolling hills of the Blue Ridge Mountains. All fitness levels welcome.
-					</p>
-				</div>
-
-			</div><!-- .activity-row activity-row--reverse -->
-
-			<!-- Row 3: Kayaking (image left) -->
-			<div class="activity-row">
-
-				<div class="activity-row__image">
-					<div class="activity-row__image-placeholder">
-						<?php echo ski_club_icon( 'droplets', 'icon icon-xl' ); ?>
-					</div>
-				</div>
-
-				<div class="activity-row__content">
-					<span class="activity-row__season">Summer</span>
-					<div class="activity-row__icon-wrap">
-						<?php echo ski_club_icon( 'droplets', 'icon icon-lg' ); ?>
-					</div>
-					<h3 class="activity-row__title">Kayaking</h3>
-					<p class="activity-row__desc">
-						Summer paddles on the Potomac, Shenandoah, and local lakes give members a fresh way to experience the outdoors. Guided outings are available for beginners, while more experienced paddlers can tackle longer river routes with the group.
-					</p>
-				</div>
-
-			</div><!-- .activity-row -->
-
-			<!-- Row 4: Social Events (image right) -->
-			<div class="activity-row activity-row--reverse">
-
-				<div class="activity-row__image">
-					<div class="activity-row__image-placeholder">
-						<?php echo ski_club_icon( 'party-popper', 'icon icon-xl' ); ?>
-					</div>
-				</div>
-
-				<div class="activity-row__content">
-					<span class="activity-row__season">Year-Round</span>
-					<div class="activity-row__icon-wrap">
-						<?php echo ski_club_icon( 'party-popper', 'icon icon-lg' ); ?>
-					</div>
-					<h3 class="activity-row__title">Social Events</h3>
-					<p class="activity-row__desc">
-						The glue that holds everything together. Monthly club meetings, end-of-season celebrations, spring picnics, and holiday parties keep the LHSC community connected long after the ski season ends. New members are always welcomed at every event.
-					</p>
-				</div>
-
-			</div><!-- .activity-row activity-row--reverse -->
+			<?php endforeach; ?>
 
 		</div><!-- .activity-rows -->
 
@@ -276,6 +246,14 @@ $events_query = new WP_Query( [
 /* ==========================================================================
    SECTION 4 — MONTHLY MEETINGS INFO CARD
    ========================================================================== */
+
+$meeting_schedule = ski_club_get_field( 'ep_meeting_schedule', $events_page_id ) ?: 'Third Thursday of Every Month';
+$meeting_doors    = ski_club_get_field( 'ep_meeting_doors',    $events_page_id ) ?: 'Doors open at 6:30 PM — meeting begins at 7:00 PM';
+$meeting_time     = ski_club_get_field( 'ep_meeting_time',     $events_page_id ) ?: '7:00 PM';
+$meeting_duration = ski_club_get_field( 'ep_meeting_duration', $events_page_id ) ?: 'Typically 60–90 minutes';
+$meeting_venue    = ski_club_get_field( 'ep_meeting_venue',    $events_page_id ) ?: 'Ledo Pizza';
+$meeting_city     = ski_club_get_field( 'ep_meeting_city',     $events_page_id ) ?: 'Hagerstown, MD';
+$meeting_open_to  = ski_club_get_field( 'ep_meeting_open_to',  $events_page_id ) ?: 'Members and prospective members encouraged to attend';
 ?>
 
 <section class="section">
@@ -293,26 +271,26 @@ $events_query = new WP_Query( [
 
 			<div class="meetings-card__item">
 				<span class="meetings-card__label">When</span>
-				<span class="meetings-card__value">Third Thursday of Every Month</span>
-				<span class="meetings-card__note">Doors open at 6:30 PM &mdash; meeting begins at 7:00 PM</span>
+				<span class="meetings-card__value"><?php echo esc_html( $meeting_schedule ); ?></span>
+				<span class="meetings-card__note"><?php echo esc_html( $meeting_doors ); ?></span>
 			</div>
 
 			<div class="meetings-card__item">
 				<span class="meetings-card__label">Time</span>
-				<span class="meetings-card__value">7:00 PM</span>
-				<span class="meetings-card__note">Typically 60&ndash;90 minutes</span>
+				<span class="meetings-card__value"><?php echo esc_html( $meeting_time ); ?></span>
+				<span class="meetings-card__note"><?php echo esc_html( $meeting_duration ); ?></span>
 			</div>
 
 			<div class="meetings-card__item">
 				<span class="meetings-card__label">Location</span>
-				<span class="meetings-card__value">Ledo Pizza</span>
-				<span class="meetings-card__note">Hagerstown, MD</span>
+				<span class="meetings-card__value"><?php echo esc_html( $meeting_venue ); ?></span>
+				<span class="meetings-card__note"><?php echo esc_html( $meeting_city ); ?></span>
 			</div>
 
 			<div class="meetings-card__item">
 				<span class="meetings-card__label">Who Can Attend</span>
 				<span class="meetings-card__value">All Are Welcome</span>
-				<span class="meetings-card__note">Members and prospective members encouraged to attend</span>
+				<span class="meetings-card__note"><?php echo esc_html( $meeting_open_to ); ?></span>
 			</div>
 
 		</div><!-- .meetings-card -->

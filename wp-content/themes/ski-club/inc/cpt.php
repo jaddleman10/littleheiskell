@@ -209,13 +209,13 @@ function ski_club_register_acf_fields() {
 				'name'    => 'event_category',
 				'type'    => 'select',
 				'choices' => [
-					'meeting' => 'Meeting',
-					'biking'  => 'Biking',
-					'kayaking' => 'Kayaking',
-					'social'  => 'Social',
-					'skiing'  => 'Skiing',
+					'Meeting'  => 'Meeting',
+					'Biking'   => 'Biking',
+					'Kayaking' => 'Kayaking',
+					'Social'   => 'Social',
+					'Skiing'   => 'Skiing',
 				],
-				'default_value' => 'meeting',
+				'default_value' => 'Meeting',
 				'allow_null'    => 0,
 				'ui'            => 1,
 			],
@@ -235,5 +235,191 @@ function ski_club_register_acf_fields() {
 		'label_placement'       => 'top',
 		'instruction_placement' => 'label',
 	] );
+	/* -----------------------------------------------------------------------
+	   Events Page — editable activities & meeting details
+	----------------------------------------------------------------------- */
+	acf_add_local_field_group( [
+		'key'   => 'group_events_page',
+		'title' => 'Events Page Settings',
+		'fields' => [
+
+			// ── Activity rows ──────────────────────────────────────────────
+			[
+				'key'   => 'field_ep_tab_activities',
+				'label' => 'Activity Sections',
+				'type'  => 'tab',
+			],
+			// Skiing
+			[
+				'key'          => 'field_ep_skiing_title',
+				'label'        => 'Skiing — Title',
+				'name'         => 'ep_skiing_title',
+				'type'         => 'text',
+				'default_value' => 'Skiing & Snowboarding',
+			],
+			[
+				'key'          => 'field_ep_skiing_season',
+				'label'        => 'Skiing — Season Label',
+				'name'         => 'ep_skiing_season',
+				'type'         => 'text',
+				'default_value' => 'Winter',
+			],
+			[
+				'key'          => 'field_ep_skiing_desc',
+				'label'        => 'Skiing — Description',
+				'name'         => 'ep_skiing_desc',
+				'type'         => 'textarea',
+				'rows'         => 4,
+				'default_value' => 'Our flagship activity. Each winter season we organize multiple group trips to premier resorts, from nearby Timberline and Snowshoe to world-class destinations in Colorado, Vermont, and Europe. Group rates, coordinated travel, and shared lodging make every trip affordable and unforgettable.',
+			],
+			// Biking
+			[
+				'key'          => 'field_ep_biking_title',
+				'label'        => 'Biking — Title',
+				'name'         => 'ep_biking_title',
+				'type'         => 'text',
+				'default_value' => 'Biking',
+			],
+			[
+				'key'          => 'field_ep_biking_season',
+				'label'        => 'Biking — Season Label',
+				'name'         => 'ep_biking_season',
+				'type'         => 'text',
+				'default_value' => 'Spring & Summer',
+			],
+			[
+				'key'          => 'field_ep_biking_desc',
+				'label'        => 'Biking — Description',
+				'name'         => 'ep_biking_desc',
+				'type'         => 'textarea',
+				'rows'         => 4,
+				'default_value' => "When the snow melts, we trade ski poles for handlebars. Our biking program offers group rides through some of the region's most scenic trails — the C&O Canal towpath, the Great Allegheny Passage, and the rolling hills of the Blue Ridge Mountains. All fitness levels welcome.",
+			],
+			// Kayaking
+			[
+				'key'          => 'field_ep_kayaking_title',
+				'label'        => 'Kayaking — Title',
+				'name'         => 'ep_kayaking_title',
+				'type'         => 'text',
+				'default_value' => 'Kayaking',
+			],
+			[
+				'key'          => 'field_ep_kayaking_season',
+				'label'        => 'Kayaking — Season Label',
+				'name'         => 'ep_kayaking_season',
+				'type'         => 'text',
+				'default_value' => 'Summer',
+			],
+			[
+				'key'          => 'field_ep_kayaking_desc',
+				'label'        => 'Kayaking — Description',
+				'name'         => 'ep_kayaking_desc',
+				'type'         => 'textarea',
+				'rows'         => 4,
+				'default_value' => 'Summer paddles on the Potomac, Shenandoah, and local lakes give members a fresh way to experience the outdoors. Guided outings are available for beginners, while more experienced paddlers can tackle longer river routes with the group.',
+			],
+			// Social
+			[
+				'key'          => 'field_ep_social_title',
+				'label'        => 'Social Events — Title',
+				'name'         => 'ep_social_title',
+				'type'         => 'text',
+				'default_value' => 'Social Events',
+			],
+			[
+				'key'          => 'field_ep_social_season',
+				'label'        => 'Social Events — Season Label',
+				'name'         => 'ep_social_season',
+				'type'         => 'text',
+				'default_value' => 'Year-Round',
+			],
+			[
+				'key'          => 'field_ep_social_desc',
+				'label'        => 'Social Events — Description',
+				'name'         => 'ep_social_desc',
+				'type'         => 'textarea',
+				'rows'         => 4,
+				'default_value' => 'The glue that holds everything together. Monthly club meetings, end-of-season celebrations, spring picnics, and holiday parties keep the LHSC community connected long after the ski season ends. New members are always welcomed at every event.',
+			],
+
+			// ── Monthly meetings ───────────────────────────────────────────
+			[
+				'key'   => 'field_ep_tab_meetings',
+				'label' => 'Monthly Meeting Details',
+				'type'  => 'tab',
+			],
+			[
+				'key'          => 'field_ep_meeting_schedule',
+				'label'        => 'Schedule',
+				'name'         => 'ep_meeting_schedule',
+				'type'         => 'text',
+				'instructions' => 'e.g. Third Thursday of Every Month',
+				'default_value' => 'Third Thursday of Every Month',
+			],
+			[
+				'key'          => 'field_ep_meeting_doors',
+				'label'        => 'Doors Open Note',
+				'name'         => 'ep_meeting_doors',
+				'type'         => 'text',
+				'instructions' => 'Shown as a sub-note under the schedule.',
+				'default_value' => 'Doors open at 6:30 PM — meeting begins at 7:00 PM',
+			],
+			[
+				'key'          => 'field_ep_meeting_time',
+				'label'        => 'Start Time',
+				'name'         => 'ep_meeting_time',
+				'type'         => 'text',
+				'default_value' => '7:00 PM',
+			],
+			[
+				'key'          => 'field_ep_meeting_duration',
+				'label'        => 'Duration Note',
+				'name'         => 'ep_meeting_duration',
+				'type'         => 'text',
+				'default_value' => 'Typically 60–90 minutes',
+			],
+			[
+				'key'          => 'field_ep_meeting_venue',
+				'label'        => 'Venue Name',
+				'name'         => 'ep_meeting_venue',
+				'type'         => 'text',
+				'default_value' => 'Ledo Pizza',
+			],
+			[
+				'key'          => 'field_ep_meeting_city',
+				'label'        => 'Venue City',
+				'name'         => 'ep_meeting_city',
+				'type'         => 'text',
+				'default_value' => 'Hagerstown, MD',
+			],
+			[
+				'key'          => 'field_ep_meeting_open_to',
+				'label'        => 'Who Can Attend',
+				'name'         => 'ep_meeting_open_to',
+				'type'         => 'text',
+				'default_value' => 'Members and prospective members encouraged to attend',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'page',
+				],
+				[
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'top_level_page',
+				],
+			],
+		],
+		'menu_order'            => 0,
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+	] );
+
 }
 add_action( 'acf/init', 'ski_club_register_acf_fields' );
